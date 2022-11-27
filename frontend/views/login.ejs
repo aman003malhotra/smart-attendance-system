@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <main class="container">
+        <h1>Smart Attendence</h1>
+        <h2>Log in Your Account</h2>
+        <%- include ("./partials/messages") %>
+        <form id="form1" action="/users/login" method="post" >
+            <div class="input-field">
+                <input type="email" name="email" id="email"
+                    placeholder="Enter Your Email"required>
+                <div class="underline"></div>
+            </div>
+            <div class="input-field">
+                <input type="password" name="password" id="password"
+                    placeholder="Enter Your password" required>
+                <div class="underline"></div>
+            </div>
+            <input type="submit" value="Login">
+        </form>
+
+        <div class="footer">
+            <div>
+                <span class="foot">Haven't an account? <a href="/users/register">Register</a></span>
+            </div>
+
+            
+        </div>
+    </main>
+</body>
+</html>

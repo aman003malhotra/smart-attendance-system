@@ -1,0 +1,190 @@
+/* ------------Navbar Css---------------- */
+
+body {
+    /* background: url('../images/back1.jpg'); */
+    background-color: black;
+    background-color: #00daff;
+    background-color: #3a8693;
+}
+
+.bc {
+    background: transparent;
+}
+
+.logo-img {
+    height: 30px;
+}
+
+.nav-item a:hover {
+    color: #ff5200;
+    text-decoration: 1px underline;
+}
+
+.nav-item {
+    border-radius: 10px !important;
+}
+
+.btn-color {
+    background: #d8672b !important;
+    color: white;
+}
+
+.btn-color:hover {
+    background-color: black !important;
+    color: #d8672b;
+}
+
+
+/* --------------------- Home Page(Main Content) --------------- */
+
+.box {
+    border-radius: 10px;
+    /* background-color: aqua; */
+    /* box-shadow: 0px 0px 25px 2px #d8672b; */
+    /* box-shadow: 0px 0px 30px 2px aqua; */
+    background: white;
+}
+
+.home hr {
+    width: 95% !important;
+    margin-left: 12px;
+}
+
+.home h3 {
+    text-align: center;
+}
+
+.custom-btn {
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 12px;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5), 7px 7px 20px 0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
+    outline: none;
+}
+
+
+/* 14 */
+
+.btn-14 {
+    background: #d8672b;
+    border: none;
+    z-index: 1;
+}
+
+.btn-14:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 5px;
+    background-color: black;
+    background-image: linear-gradient(315deg, black 0%, black 74%);
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5);
+    transition: all 0.3s ease;
+}
+
+.btn-14:hover {
+    color: #d8672b;
+}
+
+.btn-14:hover:after {
+    top: auto;
+    bottom: 0;
+    height: 100%;
+}
+
+.btn-14:active {
+    top: 2px;
+}
+
+.btn-mark {
+    border: 2px solid #d8672b;
+    font-size: 14px;
+    padding: 6px 6px;
+}
+
+.btn-mark:hover {
+    background-color: rgb(38, 81, 81);
+    color: white;
+}
+
+
+/* --------------------- Subject 1(Content) --------------------- */
+
+subject-details-table tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    border-style: none !important;
+}
+
+.box2 {
+    box-shadow: 0px 10px 10px -5px rgb(93, 93, 93);
+    border-radius: 10px;
+}
+
+.right-text {
+    text-align: right;
+}
+
+.attendence-table th,
+.attendence-table td {
+    text-align: center;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #80d6ff;
+    /* background-color: #80d6ff; */
+}
+
+.table-striped th {
+    /* background-color: #ffa980 !important; */
+    background-color: #ff8e52 !important;
+}
+
+#buttons input {
+    background-color: #d8672b;
+    margin: 0px 2px;
+    border: none;
+}
+
+#buttons input:hover {
+    background-color: black;
+    color: #ff5200
+}
+
+
+/* -------------------ViewAttendenceTeacher------------------- */
+
+.list-students {
+    height: 65vh;
+    overflow: scroll;
+}
+
+.box3 {
+    background: white;
+    border-radius: 10px;
+}
+
+.teacher-attendence-wrapper {
+    justify-content: space-evenly;
+}
+
+.justify-content-evenly {
+    justify-content: space-evenly;
+}
+.custom-pad{
+    padding: 5px 5px;
+}
