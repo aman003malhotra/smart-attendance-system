@@ -48,6 +48,10 @@ router.get('/viewAttendenceTeacher', (req, res) => {
     res.render('viewAttendenceTeacher', {})
 });
 
+router.post('/request', (req, res) => {
+
+    console.log(req.body);
+});
 
 // router.post('/post-image-data',upload.single('image'), async (req, res) => {
 //     api_url = 'http://127.0.0.1:5000/predict'

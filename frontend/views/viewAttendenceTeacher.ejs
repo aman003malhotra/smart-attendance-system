@@ -182,35 +182,6 @@
                 </table> -->
             </div>
         </div>
-        
-        <!-- <script>
-           $(document).ready(function (e) {
-            $("#main-form").on('submit',(function(e) {
-                console.log("Hello");
-            e.preventDefault();
-            $.ajax({
-            url: "http://127.0.0.1:5000/predict",
-            type: "POST",
-            data:  new FormData(this),
-            contentType: false,
-            cache: false,
-            processData:false, 
-            // headers: { "Access-Control-Allow-Origin": "*" },
-            onComplete: function(transport){
-                console.log("success");
-                console.log(transport);
-            } 
-            });
-
-            }
-            
-            
-            ))
-            
-
-            ;
-            });
-        </script> -->
         <script>
         const form = document.querySelector("form");
         form.addEventListener("submit", async (e) => {
@@ -226,6 +197,13 @@
             })
             .then((res) => {
               console.log(res.data);
+                $.post("/request",
+                    {
+                        number: res.data,
+                    },
+                    function (data, status) {
+                        console.log(data);
+                    });              
             })
             .catch((err) => {
               console.log(err);
