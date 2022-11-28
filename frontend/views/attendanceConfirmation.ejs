@@ -101,7 +101,7 @@
                     <input type="submit" value ="Submit" />
                 </form>
 
-                <!-- <table id="myTable" class="table attendence-table table-striped  ">
+                <table id="myTable" class="table attendence-table table-striped  ">
                     <thead>
                         <tr>
                             <th>Sr no.</th>
@@ -179,37 +179,9 @@
                         </tr>
 
                     </tbody>
-                </table> -->
+                </table>
             </div>
         </div>
-        <script>
-        const form = document.querySelector("form");
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
-          console.log("working");
-          const formData = new FormData(form);
-          await axios
-            .post("http://localhost:5000/predict", formData, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-                "withCredentials": false,
-              },
-            })
-            .then((res) => {
-              console.log(res.data);
-                $.post("/request",
-                    {
-                        number: res.data,
-                    },
-                    function (data, status) {
-                        console.log(data);
-                    });              
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        });
-      </script>
 
 
 
