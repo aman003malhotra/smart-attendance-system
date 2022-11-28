@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/Dashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <title>View Attendance</title>
+</head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<body>
+    <%- include ("./partials/navbar") %>
+    <!-- ------------- Subject Info and Attendence Table--------------- -->
+    <div class="row mt-4 teacher-attendence-wrapper">
+
+        <div class="col-lg-3 box3 p-4">
+            <div class="row">
+                <h3>Student List</h3>
+                <hr>
+            </div>
+            <div class="row">
+                <div class="list-group list-students " data-spy="scroll">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        Anurag Pandey - 1904980
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+                    <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 box3">
+            <div class="row">
+                <h3 class="text-center">Attendence</h3>
+                <hr>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 box2">
+                    <table class=" subject-details-table table table-default ">
+
+                        <tbody>
+                            <tr>
+                                <th scope="row">Subject Id </th>
+                                <td>PCCS-100</td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Teacher Name</th>
+                                <td>Kapil Sharma</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Department</th>
+                                <td>Computer Science</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total Student</th>
+                                <td>50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="text-align:center" class="row mt-4">
+
+                <form id="main-form" method="POST" enctype="multipart/form-data">
+                    <input style="display:block;" type="file"  name="image" required/>
+                    <input type="submit" value ="Submit" />
+                </form>
+
+                <table id="myTable" class="table attendence-table table-striped  ">
+                    <thead>
+                        <tr>
+                            <th>Sr no.</th>
+                            <th>Date</th>
+                            <th>Attendance</th>
+                            <th>Edit Attendance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 2022</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 2021</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 2023</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 2024</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 2025</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 2026</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 2027</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 2028</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 2029</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 20290</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>19 November 2022</td>
+                            <td>Present</td>
+                            <td><i class="bi bi-pencil-fill"></i></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <!-- <script>
+            // get the table element
+            var $table = document.getElementById("myTable"),
+                // number of rows per page
+                $n = 7,
+                // number of rows of the table
+                $rowCount = $table.rows.length,
+                // get the first cell's tag name (in the first row)
+                $firstRow = $table.rows[0].firstElementChild.tagName,
+                // boolean var to check if table has a head row
+                $hasHead = ($firstRow === "TH"),
+                // an array to hold each row
+                $tr = [],
+                // loop counters, to start count from rows[1] (2nd row) if the first row has a head tag
+                $i, $ii, $j = ($hasHead) ? 1 : 0,
+                // holds the first row if it has a (<TH>) & nothing if (<TD>)
+                $th = ($hasHead ? $table.rows[(0)].outerHTML : "");
+            // count the number of pages
+            var $pageCount = Math.ceil($rowCount / $n);
+            // if we had one page only, then we have nothing to do ..
+            if ($pageCount > 1) {
+                // assign each row outHTML (tag name & innerHTML) to the array
+                for ($i = $j, $ii = 0; $i < $rowCount; $i++, $ii++)
+                    $tr[$ii] = $table.rows[$i].outerHTML;
+                // create a div block to hold the buttons
+                $table.insertAdjacentHTML("afterend", "<div id='buttons'></div");
+                // the first sort, default page is the first one
+                sort(1);
+            }
+
+            // ($p) is the selected page number. it will be generated when a user clicks a button
+            function sort($p) {
+                /* create ($rows) a variable to hold the group of rows
+                 ** to be displayed on the selected page,
+                 ** ($s) the start point .. the first row in each page, Do The Math
+                 */
+                var $rows = $th,
+                    $s = (($n * $p) - $n);
+                for ($i = $s; $i < ($s + $n) && $i < $tr.length; $i++)
+                    $rows += $tr[$i];
+
+                // now the table has a processed group of rows ..
+                $table.innerHTML = $rows;
+                // create the pagination buttons
+                document.getElementById("buttons").innerHTML = pageButtons($pageCount, $p);
+                // CSS Stuff
+                document.getElementById("id" + $p).setAttribute("class", "active");
+            }
+
+
+            // ($pCount) : number of pages,($cur) : current page, the selected one ..
+            function pageButtons($pCount, $cur) {
+                /* this variables will disable the "Prev" button on 1st page
+                   and "next" button on the last one */
+                var $prevDis = ($cur == 1) ? "disabled" : "",
+                    $nextDis = ($cur == $pCount) ? "disabled" : "",
+                    /* this ($buttons) will hold every single button needed
+                     ** it will creates each button and sets the onclick attribute
+                     ** to the "sort" function with a special ($p) number..
+                     */
+                    $buttons = "<input type='button'  value='&lt;&lt; Prev'    onclick='sort(" + ($cur - 1) + ")' " + $prevDis + ">";
+                for ($i = 1; $i <= $pCount; $i++)
+                    $buttons += "<input type='button' id='id" + $i + "'value='" + $i + "' onclick='sort(" + $i + ")'>";
+                $buttons += "<input type='button' value='Next &gt;&gt;' onclick='sort(" + ($cur + 1) + ")' " + $nextDis + ">";
+                return $buttons;
+            }
+        </script> -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
