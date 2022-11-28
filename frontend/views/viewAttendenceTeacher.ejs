@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <title>View Attendance</title>
 </head>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <body>
     <%- include ("./partials/navbar") %>
     <!-- ------------- Subject Info and Attendence Table--------------- -->
@@ -78,23 +79,29 @@
 
                             </tr>
                             <tr>
-                                <th scope="row">Student Name</th>
-                                <td>Aman Malhotra</td>
+                                <th scope="row">Teacher Name</th>
+                                <td>Kapil Sharma</td>
                             </tr>
                             <tr>
-                                <th scope="row">URN</th>
-                                <td>1904976</td>
+                                <th scope="row">Department</th>
+                                <td>Computer Science</td>
                             </tr>
                             <tr>
-                                <th scope="row">Attendence Percentage</th>
-                                <td>95%</td>
+                                <th scope="row">Total Student</th>
+                                <td>50</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="row mt-4">
-                <table id="myTable" class="table attendence-table table-striped  ">
+            <div style="text-align:center" class="row mt-4">
+
+                <form id="main-form" method="POST" enctype="multipart/form-data">
+                    <input style="display:block;" type="file"  name="image" required/>
+                    <input type="submit" value ="Submit" />
+                </form>
+
+                <!-- <table id="myTable" class="table attendence-table table-striped  ">
                     <thead>
                         <tr>
                             <th>Sr no.</th>
@@ -172,12 +179,67 @@
                         </tr>
 
                     </tbody>
-                </table>
+                </table> -->
             </div>
         </div>
+        
+        <!-- <script>
+           $(document).ready(function (e) {
+            $("#main-form").on('submit',(function(e) {
+                console.log("Hello");
+            e.preventDefault();
+            $.ajax({
+            url: "http://127.0.0.1:5000/predict",
+            type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false, 
+            // headers: { "Access-Control-Allow-Origin": "*" },
+            onComplete: function(transport){
+                console.log("success");
+                console.log(transport);
+            } 
+            });
 
+            }
+            
+            
+            ))
+            
 
+            ;
+            });
+        </script> -->
         <script>
+        const form = document.querySelector("form");
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          console.log("working");
+          const formData = new FormData(form);
+          await axios
+            .post("http://localhost:5000/predict", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                "withCredentials": false,
+              },
+            })
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+      </script>
+
+
+
+
+
+
+
+        <!-- <script>
             // get the table element
             var $table = document.getElementById("myTable"),
                 // number of rows per page
@@ -243,7 +305,7 @@
                 $buttons += "<input type='button' value='Next &gt;&gt;' onclick='sort(" + ($cur + 1) + ")' " + $nextDis + ">";
                 return $buttons;
             }
-        </script>
+        </script> -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 </body>

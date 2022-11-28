@@ -6,6 +6,9 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const MongoDBStore = require("connect-mongodb-session")(session);
 const moment = require("moment");
+const axios = require('axios');
+
+var cors = require('cors');
 
 const app = express();
 
@@ -41,10 +44,18 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 
 //css static
+
 app.use(express.static('public'));
 app.use('/css',express.static(__dirname + '/public'));
 app.use('/images',express.static(__dirname + '/public'));
+app.use('/uploads', express.static(__dirname +'/uploads'));
 
+const corsOptions ={
+  origin:'http://localhost:5000', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
+app.use(cors(corsOptions))
 // Express session
 app.use(
   session({
@@ -75,6 +86,8 @@ app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 app.use('/index', require('./routes/index.js'));
 
-const PORT = process.env.PORT || 5000;
+
+
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, console.log(`Server running on  ${PORT}`));

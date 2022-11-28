@@ -2,21 +2,25 @@ from flask import Flask
 from deepface import DeepFace
 from retinaface import RetinaFace
 import matplotlib.pyplot as plt
-from flask import request, render_template
+from flask import request, make_response, jsonify
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from deepface.basemodels import VGGFace
 from PIL import Image
 from numpy import asarray
 
+from flask_cors import CORS
 
 model = VGGFace.loadModel()
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def hello():
-  return "Hello World!"
+  
+  data = "hello world"
+  return jsonify({'data': data}), 201
 
 
 @app.route("/sampletext", methods=["GET", "POST"])
@@ -51,7 +55,8 @@ def predict():
             print(cosine)
             print("------------------------\n")
         print("------------------------")
-      return str(len(faces))
+        data={"number":str(len(faces))}
+      return jsonify(data)
 
 
 if __name__ == "__main__":
