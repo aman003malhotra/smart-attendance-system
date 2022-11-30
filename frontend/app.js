@@ -64,12 +64,6 @@ app.use(cors(corsOptions))
 // Express session
 const twoDay = 1000 * 60 * 60 * 24*2;
 app.use(sessions
-//   ({
-//     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-//     saveUninitialized:true,
-//     cookie: { maxAge: twoDay },
-//     resave: false 
-// })
 ({
   secret: 'secret',
   resave: true,
