@@ -11,6 +11,9 @@ var store = require('store')
 
 const Student = require('../models/Student');
 
+const StudentAttendance = require('../models/StudentAttendance');
+
+
 // const multer  = require('multer')
 
 // const FormData = require('form-data');
@@ -66,7 +69,6 @@ router.post('/foundStudents', (req, res, next) => {
 
 router.get('/confirmation', async (req, res, next) => {
     console.log("Redirecting");
-    markStudent = req.session;
     console.log(store.get('student'));
     list_of_student = store.get('student');
     final_list = [];
@@ -79,6 +81,42 @@ router.get('/confirmation', async (req, res, next) => {
                     console.log("final",final_list);
                     res.render('attendanceConfirmation', {final_list:final_list});
                 }
+            }).catch((err) => {
+                console.log(err);
+            });
+          }
+    }
+});
+
+
+
+router.post('/confirmation', async (req, res, next) => {
+    console.log("Final Confirmation");
+    console.log(store.get('student'));
+    list_of_student = store.get('student');
+    if(list_of_student){
+        for (let i = 0; i < list_of_student.length; i++) {
+            Student.find({urn:list_of_student[i]})
+            .then((user) => {
+                const newAttendance = new StudentAttendance({
+                    teacherName:"kapil",
+                    subject_code: user[0].subject_code,
+                    studenturn:user[0].urn,
+                    slot:2,
+                    branch:user[0].branch});
+                
+                newAttendance
+                .save()
+                .then((data)=>{
+                    console.log("saved")
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            }).then(() => {
+
+                // ADDING REDIRECTION
+                // res.redirect('/viewAttendenceTeacher')
             }).catch((err) => {
                 console.log(err);
             });
