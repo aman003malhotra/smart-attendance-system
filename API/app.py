@@ -35,14 +35,10 @@ def predict():
       f = request.files['image']
       img = Image.open(f)
       numpydata = asarray(img)
-      # to save the file in the same folder
-      # f.save(secure_filename(f.filename))
       faces = RetinaFace.extract_faces(numpydata, align=True)
       print("There are ", len(faces), " faces in the image")
+      list_of_students = []
       for face in faces:
-        # plt.imshow(face)
-        # plt.axis('off')
-        # plt.show()
         df = DeepFace.find(face, db_path = "./static/jpg2", enforce_detection=False, distance_metric='cosine', model = model, model_name='VGG-Face')
         df = df.rename(columns = {'VGG-Face_cosine':'distance'})
         if df.shape[0] > 0:
@@ -54,8 +50,14 @@ def predict():
                 print("No Match Found")
             print(cosine)
             print("------------------------\n")
+            string = matched
+            string = string.encode("unicode_escape")
+            string = string[15:22]
+            string = string.decode()
+            list_of_students.append(string)
         print("------------------------")
-        data={"number":str(len(faces))}
+      print(list_of_students)
+      data={"number":list_of_students}
       return jsonify(data)
 
 

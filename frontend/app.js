@@ -7,8 +7,11 @@ const session = require('express-session');
 const MongoDBStore = require("connect-mongodb-session")(session);
 const moment = require("moment");
 const axios = require('axios');
-
+const path = require('path');
 var cors = require('cors');
+
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
 
 const app = express();
 
@@ -46,6 +49,7 @@ app.use(express.urlencoded({ extended: true }));
 //css static
 
 app.use(express.static('public'));
+app.set('/views', path.join(__dirname, '/views'));
 app.use('/css',express.static(__dirname + '/public'));
 app.use('/images',express.static(__dirname + '/public'));
 app.use('/uploads', express.static(__dirname +'/uploads'));
@@ -57,19 +61,18 @@ const corsOptions ={
 }
 app.use(cors(corsOptions))
 // Express session
-app.use(
-  session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true,
-    store: store
-  })
-);
+const twoDay = 1000 * 60 * 60 * 24*2;
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: twoDay },
+    resave: false 
+}));
 
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(cookieParser());
 // Connect flash
 app.use(flash());
 

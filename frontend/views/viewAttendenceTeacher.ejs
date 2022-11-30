@@ -96,7 +96,7 @@
             </div>
             <div style="text-align:center" class="row mt-4">
 
-                <form id="main-form" method="POST" enctype="multipart/form-data">
+                <form action="/confirmation" id="main-form" method="POST" enctype="multipart/form-data">
                     <input style="display:block;" type="file"  name="image" required/>
                     <input type="submit" value ="Submit" />
                 </form>
@@ -197,12 +197,13 @@
             })
             .then((res) => {
               console.log(res.data);
-                $.post("/request",
+              window.location.href="/confirmation";
+                $.post("/foundStudents",
                     {
                         number: res.data,
                     },
                     function (data, status) {
-                        console.log(data);
+                        // console.log(data);
                     });              
             })
             .catch((err) => {
