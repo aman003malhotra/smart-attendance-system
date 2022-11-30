@@ -6,25 +6,30 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const { now } = require('mongoose');
 const User = require('../models/user');
 const { default: axios } = require('axios');
-const multer  = require('multer')
 
-const FormData = require('form-data');
+var store = require('store')
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './uploads')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname)
-    }
-})
-var upload = multer({ storage: storage })
+const Student = require('../models/Student');
+
+// const multer  = require('multer')
+
+// const FormData = require('form-data');
+
+// var storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, './uploads')
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.originalname)
+//     }
+// })
+// var upload = multer({ storage: storage })
 
 // Welcome Page
 router.get('/', forwardAuthenticated, (req, res) => res.render('login'));
 
 // Dashboard
-router.get('/dashboard', ensureAuthenticated, async(req, res) => {
+router.get('/dashboard', ensureAuthenticated,(req, res) => {
    
     res.render('dashboard', {
         
@@ -43,22 +48,42 @@ router.get('/teacherDashboard', (req, res) => {
     res.render('teacherDashboard', {})
 });
 
+
+// router.get('/confirmation', (req, res) => {
+//     console.log("Hello");
+//     res.render('attendanceConfirmation', {})
+// });
+
 router.get('/viewAttendenceTeacher', (req, res) => {
 
     res.render('viewAttendenceTeacher', {})
 });
 
-router.post('/request', (req, res) => {
-    console.log(req.body);
-    res.render('attendanceConfirmation');
+router.post('/foundStudents', (req, res, next) => {
+    store.set('student', req.body.number.number);
+    
 });
 
-router.get('/admin', async(req, res) => {
-    
-    res.render('adminPanel', {
-       
-
-    })
+router.get('/confirmation', async (req, res, next) => {
+    console.log("Redirecting");
+    markStudent = req.session;
+    console.log(store.get('student'));
+    list_of_student = store.get('student');
+    final_list = [];
+    if(list_of_student){
+        for (let i = 0; i < list_of_student.length; i++) {
+            Student.find({urn:list_of_student[i]})
+            .then((user) => {
+                final_list.push(user[0])
+                if(final_list.length === list_of_student.length){
+                    console.log("final",final_list);
+                    res.render('attendanceConfirmation', {final_list:final_list});
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+          }
+    }
 });
 
 

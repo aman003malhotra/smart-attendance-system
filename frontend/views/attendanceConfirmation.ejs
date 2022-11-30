@@ -95,91 +95,29 @@
                 </div>
             </div>
             <div style="text-align:center" class="row mt-4">
-
-                <form id="main-form" method="POST" enctype="multipart/form-data">
-                    <input style="display:block;" type="file"  name="image" required/>
-                    <input type="submit" value ="Submit" />
-                </form>
-
                 <table id="myTable" class="table attendence-table table-striped  ">
                     <thead>
                         <tr>
-                            <th>Sr no.</th>
-                            <th>Date</th>
-                            <th>Attendance</th>
-                            <th>Edit Attendance</th>
+                            <th>URN</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Semester</th>
                         </tr>
                     </thead>
                     <tbody>
+                    <% final_list.forEach(function(result){ %>
                         <tr>
-                            <td>1</td>
-                            <td>19 November 2022</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
+                            <td><%= result.urn %></td>
+                            <td><%= result.name %></td>
+                            <td><%= result.email %></td>
+                            <td><%= result.semester %></td>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>19 November 2021</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>19 November 2023</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>19 November 2024</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>19 November 2025</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>19 November 2026</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>19 November 2027</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>19 November 2028</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>19 November 2029</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>19 November 20290</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>19 November 2022</td>
-                            <td>Present</td>
-                            <td><i class="bi bi-pencil-fill"></i></td>
-                        </tr>
-
+                    <%  }); %>
                     </tbody>
                 </table>
+                <form id="main-form" method="POST" enctype="multipart/form-data">
+                    <input type="submit" value ="Confirm Attendance" />
+                </form>
             </div>
         </div>
 
