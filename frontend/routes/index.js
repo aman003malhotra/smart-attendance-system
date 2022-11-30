@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+
 const passport = require('passport');
-const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const { ensureAuthenticated, forwardAuthenticated,ensureTeacher, ensureStudent } = require('../config/auth');
 
 const { now } = require('mongoose');
 const User = require('../models/user');
@@ -32,8 +33,8 @@ const StudentAttendance = require('../models/StudentAttendance');
 router.get('/', forwardAuthenticated, (req, res) => res.render('login'));
 
 // Dashboard
-router.get('/dashboard', ensureAuthenticated,(req, res) => {
-   
+router.get('/dashboard', ensureAuthenticated,ensureStudent,(req, res) => {
+    user_id = req.session.passport.user._id;
     res.render('dashboard', {
         
     });
@@ -41,12 +42,12 @@ router.get('/dashboard', ensureAuthenticated,(req, res) => {
 });
 
 
-router.get('/viewAttendenceStudent', (req, res) => {
+router.get('/viewAttendenceStudent',ensureAuthenticated,ensureStudent, (req, res) => {
 
     res.render('viewAttendenceStudent', {})
 });
 
-router.get('/teacherDashboard', (req, res) => {
+router.get('/teacherDashboard', ensureAuthenticated,ensureTeacher,(req, res) => {
 
     res.render('teacherDashboard', {})
 });
@@ -57,17 +58,21 @@ router.get('/teacherDashboard', (req, res) => {
 //     res.render('attendanceConfirmation', {})
 // });
 
-router.get('/viewAttendenceTeacher', (req, res) => {
+router.get('/viewAttendenceTeacher',ensureAuthenticated,ensureTeacher, (req, res) => {
 
     res.render('viewAttendenceTeacher', {})
 });
+router.get('/markAttendence',ensureAuthenticated,ensureTeacher, (req, res) => {
 
-router.post('/foundStudents', (req, res, next) => {
+    res.render('markAttendence', {})
+});
+
+router.post('/foundStudents',ensureAuthenticated,ensureTeacher, (req, res, next) => {
     store.set('student', req.body.number.number);
     
 });
 
-router.get('/confirmation', async (req, res, next) => {
+router.get('/confirmation',ensureAuthenticated,ensureTeacher, async (req, res, next) => {
     console.log("Redirecting");
     console.log(store.get('student'));
     list_of_student = store.get('student');
@@ -90,10 +95,11 @@ router.get('/confirmation', async (req, res, next) => {
 
 
 
-router.post('/confirmation', async (req, res, next) => {
+router.post('/finalConfirmation',ensureAuthenticated,ensureTeacher,  (req, res, next) => {
     console.log("Final Confirmation");
     console.log(store.get('student'));
-    list_of_student = store.get('student');
+    const current_date = new Date();
+        list_of_student = store.get('student');
     if(list_of_student){
         for (let i = 0; i < list_of_student.length; i++) {
             Student.find({urn:list_of_student[i]})
@@ -102,6 +108,7 @@ router.post('/confirmation', async (req, res, next) => {
                     teacherName:"kapil",
                     subject_code: user[0].subject_code,
                     studenturn:user[0].urn,
+                    date:current_date,
                     slot:2,
                     branch:user[0].branch});
                 
@@ -116,7 +123,8 @@ router.post('/confirmation', async (req, res, next) => {
             }).then(() => {
 
                 // ADDING REDIRECTION
-                // res.redirect('/viewAttendenceTeacher')
+                
+                res.redirect('/markAttendence')
             }).catch((err) => {
                 console.log(err);
             });

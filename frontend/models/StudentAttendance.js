@@ -13,6 +13,9 @@ const StudentAttendanceSchema = new mongoose.Schema({
   slot: {
     type:Number,
   },
+  date: {
+    type:Date,
+  },
   branch:{
     type:String
   },
