@@ -6,6 +6,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const MongoDBStore = require("connect-mongodb-session")(session);
 const moment = require("moment");
+
 const axios = require('axios');
 const path = require('path');
 var cors = require('cors');
@@ -62,12 +63,15 @@ const corsOptions ={
 app.use(cors(corsOptions))
 // Express session
 const twoDay = 1000 * 60 * 60 * 24*2;
-app.use(sessions({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized:true,
-    cookie: { maxAge: twoDay },
-    resave: false 
-}));
+app.use(sessions
+({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true,
+  store: store
+})
+
+);
 
 // Passport middleware
 app.use(passport.initialize());
