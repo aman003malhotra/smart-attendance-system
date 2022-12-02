@@ -90,38 +90,9 @@ router.post('/login',
             res.redirect('/teacherDashboard');
         }
         if (req.user.role === 0) {
-            res.redirect('/dashboard');
+            res.redirect('/student-dashboard');
         }
     });
-// router.post('/login',
-//   passport.authenticate('local', {
-//     failureRedirect: '/users/login',
-//     failureFlash: true,
-//   }), async(req, res) => {
-//     var allUsers = await User.find({}).exec() ;
-//     console.log(req.user,"user----------------------")
-//     if (req.user.role === 1) {
-//       res.render('adminPanel',{
-//         name:req.user.name,
-//         email:req.user.email,
-//         user:allUsers
-//       });       
-//     }
-//     if (req.user.role === 0) {
-//       res.redirect('/dashboard');
-//     }
-//   }); 
-// router.post('/login', (req, res, next) => {
-
-
-//   console.log("my login- ",req.body)
-//   passport.authenticate('local', {
-//     successRedirect: '/dashboard',
-//     failureRedirect: '/users/login',
-//     failureFlash: true,
-
-//   })(req, res, next);
-// });
 
 // Logout
 router.get('/logout', (req, res) => {

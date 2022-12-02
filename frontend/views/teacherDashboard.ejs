@@ -11,23 +11,27 @@
     <title>Document</title>
 </head>
 
-<body>
+<body class="bg-light">
     <%- include ("./partials/navbar") %>
         <div class="row mt-4 home">
             <div class="container-fluid">
                 <div class="col-lg-8 offset-lg-2 box p-4">
                     <div class="row">
-                        <h3>My Courses</h3>
+                        <h1 style="text-align:center">My Course</h1>
 
                         <hr>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 p-2">
+                        <div class="col-lg-10 offset-lg-1 p-2">
                             <div class="card" style="width:100%;">
                                 <img src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/fa/6926005ea411e490ff8d4c5d4ff426/chemistry_logo.png?auto=format%2Ccompress&dpr=1" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title">Chemistry</h5>
-                                    <p class="card-text">UG</p>
+                                    <h1 class="card-title">
+                                        <%= teacher_data[0].subject_name%>
+                                    </h1>
+                                    <p class="card-text" style="font-size: 30px;">
+                                        <%= teacher_data[0].subject_code%>
+                                    </p>
                                     <div class="row">
                                         <div class="col-lg-12 px-0  ">
                                             <a href="viewAttendenceTeacher"> <button class=" btn btn-mark"><i class="bi bi-eye-fill"></i> View Attendance</button></a>

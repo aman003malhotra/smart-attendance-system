@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
-
 * {
     margin: 0;
     border: 0;
@@ -9,7 +8,7 @@
 }
 
 body {
-    background: #3a8693;
+    /* background: #3a8693; */
     background-repeat: no-repeat;
     min-height: 100vh;
     min-width: 100vw;
@@ -19,12 +18,11 @@ body {
 }
 
 main.container {
-    
     background: white;
     min-width: 500px;
     min-height: 40vh;
     padding: 2rem;
-    box-shadow: 2px -2px 32px #ffa1a1;
+    box-shadow: 2px -2px 32px#7b70c5d1;
     border-radius: 8px;
 }
 
@@ -51,7 +49,6 @@ main h2::before {
     border-radius: 8px;
     background: linear-gradient(45deg, #8e2de2, #4a00e0);
 }
-
 
 form {
     display: flex;
@@ -89,7 +86,7 @@ form .input-field {
     transform-origin: left;
 }
 
-.input-field input:focus ~ .underline::after {
+.input-field input:focus~.underline::after {
     transform: scaleX(1);
 }
 

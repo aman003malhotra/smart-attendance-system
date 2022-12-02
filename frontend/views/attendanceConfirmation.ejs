@@ -13,7 +13,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<body>
+<body class="bg-light">
     <%- include ("./partials/navbar") %>
         <!-- ------------- Subject Info and Attendence Table--------------- -->
         <div class="row mt-4 teacher-attendence-wrapper">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div style="text-align:center" class="row mt-4">
-                    <table id="myTable" class="table attendence-table table-striped  ">
+                    <table id="myTable" class="table attendence-table table-hover  ">
                         <thead>
                             <tr>
                                 <th>URN</th>
@@ -80,7 +80,7 @@
                         </tbody>
                     </table>
                     <form id="main-form" method="POST" class="my-3" action="/finalConfirmation" enctype="multipart/form-data">
-                        <input type="submit" class="btn btn-mark" value="Confirm Attendance" />
+                        <input type="submit" class="btn btn-light rounded-pill shadow-sm" value="Confirm Attendance" />
                     </form>
                 </div>
             </div>

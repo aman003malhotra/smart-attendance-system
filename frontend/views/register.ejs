@@ -1,51 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
     <link rel="stylesheet" href="/css/register.css">
 </head>
-<body>
+
+<body class="bg-light">
     <main class="container">
         <h1>Smart Attendence</h1>
         <h2>Create an Account</h2>
         <%= include ("./partials/messages"); %>
-        <form id="form1" action="/users/register" method="post" >
-            <div class="input-field">
-                <input type="text" name="name" id="username"
-                    placeholder="Enter Your Username" required  value="<%= typeof name != 'undefined' ? name : '' %>">
-                <div class="underline"></div>
-            </div>
-            <div class="input-field">
-                <input type="email" name="email" id="email"
-                    placeholder="Enter Your Email"required value="<%= typeof email != 'undefined' ? email : '' %>">
-                <div class="underline"></div>
-            </div>
-            <div class="input-field">
-                <input type="password" name="password" id="password"
-                    placeholder="Enter Your password" required value="<%= typeof password != 'undefined' ? password : '' %>">
-                <div class="underline"></div>
-            </div>
-            <div class="input-field">
-                <input type="password" name="password2" id="passwordConf"
-                    placeholder="Enter Your confirmPassword" required value="<%= typeof password2 != 'undefined' ? password2 : '' %>">
-                <div class="underline"></div>
-            </div>
+            <form id="form1" action="/users/register" method="post">
+                <div class="input-field">
+                    <input type="text" name="name" id="username" placeholder="Enter Your Username" required value="<%= typeof name != 'undefined' ? name : '' %>">
+                    <div class="underline"></div>
+                </div>
+                <div class="input-field">
+                    <input type="email" name="email" id="email" placeholder="Enter Your Email" required value="<%= typeof email != 'undefined' ? email : '' %>">
+                    <div class="underline"></div>
+                </div>
+                <div class="input-field">
+                    <input type="password" name="password" id="password" placeholder="Enter Your password" required value="<%= typeof password != 'undefined' ? password : '' %>">
+                    <div class="underline"></div>
+                </div>
+                <div class="input-field">
+                    <input type="password" name="password2" id="passwordConf" placeholder="Enter Your confirmPassword" required value="<%= typeof password2 != 'undefined' ? password2 : '' %>">
+                    <div class="underline"></div>
+                </div>
 
-            <input type="submit" value="Register">
-        </form>
+                <input type="submit" value="Register">
+            </form>
 
-        <div class="footer">
-            <div>
-                <span class="foot">Already Registered! <a href="/users/login">Login</a></span>
+            <div class="footer">
+                <div>
+                    <span class="foot">Already Registered! <a href="/users/login">Login</a></span>
+                </div>
+
+
             </div>
-
-            
-        </div>
     </main>
     <script>
-    
     </script>
 </body>
+
 </html>

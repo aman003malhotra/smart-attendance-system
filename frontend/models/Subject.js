@@ -4,7 +4,7 @@ const SubjectSchema = new mongoose.Schema({
   subject_code: {
     type: String,
   },
-  student_name: {
+  subject_name: {
     type: String,
   },
   subject_teacher: {
@@ -12,6 +12,9 @@ const SubjectSchema = new mongoose.Schema({
   },
   credits: {
     type:Number,
+  },
+  branch: {
+    type:String,
   }
 });
 

@@ -12,7 +12,7 @@ module.exports = {
       return next();
     }
     req.flash('error_msg', 'You are logged in as a Student ');
-    res.redirect('/dashboard');
+    res.redirect('/student-dashboard');
   },
   ensureStudent: function(req, res, next) {
     // console.log(req.session.passport.user.role);
@@ -27,7 +27,6 @@ module.exports = {
     if (!req.isAuthenticated()) {
       return next();
     }
-    console.log(req.body,"my Body here _____________________________");
-    res.redirect('/dashboard');      
+    res.redirect('/student-dashboard');      
   }
 };
