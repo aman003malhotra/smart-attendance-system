@@ -11,7 +11,7 @@ const { default: axios } = require('axios');
 var store = require('store')
 
 const Student = require('../models/Student');
-
+const Subject = require('../models/Subject');
 const StudentAttendance = require('../models/StudentAttendance');
 
 
@@ -19,12 +19,27 @@ const StudentAttendance = require('../models/StudentAttendance');
 router.get('/', forwardAuthenticated, (req, res) => res.render('login'));
 
 // Dashboard
-router.get('/dashboard', ensureAuthenticated,ensureStudent,(req, res) => {
-    user_id = req.session.passport.user._id;
-    res.render('dashboard', {
-        
-    });
-    
+router.get('/student-dashboard', ensureAuthenticated,ensureStudent,(req, res) => {
+    student_name = req.session.passport.user.name;
+    subject_list = []
+    Student.find({name:student_name})
+    .then((student_info) => {
+        student_info[0].subject_code.forEach(element => {
+            Subject.find({subject_code:element})
+            .then((subject) => {
+                subject_list.push(subject[0])
+                if(student_info[0].subject_code.length === subject_list.length){
+                    res.render('studentDashboard', {subject_list:subject_list});
+                    console.log(subject_list)
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+        });
+    })
+    .catch((err) => {
+        console.log(err)
+    })
 });
 
 
@@ -47,19 +62,11 @@ router.get('/all-student',ensureAuthenticated, (req, res) => {
     })
 });
 
-
-
-// router.get('/confirmation', (req, res) => {
-//     console.log("Hello");
-//     res.render('attendanceConfirmation', {})
-// });
-
 router.get('/viewAttendenceTeacher',ensureAuthenticated,ensureTeacher, (req, res) => {
-
     res.render('viewAttendenceTeacher', {})
 });
-router.get('/markAttendence',ensureAuthenticated,ensureTeacher, (req, res) => {
 
+router.get('/markAttendence',ensureAuthenticated,ensureTeacher, (req, res) => {
     res.render('markAttendence', {})
 });
 
