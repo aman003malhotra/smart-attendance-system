@@ -44,17 +44,18 @@ def predict():
         if df.shape[0] > 0:
             matched = df.iloc[0].identity
             cosine = df.iloc[0].distance
-            if(cosine < 0.31):
-                print(matched)
-            else:
-                print("No Match Found")
-            print(cosine)
-            print("------------------------\n")
             string = matched
             string = string.encode("unicode_escape")
             string = string[15:22]
             string = string.decode()
-            list_of_students.append(string)
+            if(cosine < 0.31):
+                print(matched)
+                list_of_students.append(string)
+            else:
+                print("No Match Found")
+            print(cosine)
+            print("URN: ",string)
+            print("------------------------\n")
         print("------------------------")
       print(list_of_students)
       data={"number":list_of_students}
