@@ -9,7 +9,8 @@ const User = require('../models/user');
 const { default: axios } = require('axios');
 
 var store = require('store')
-
+var nodemailer = require('nodemailer');
+const twilio = require('twilio')
 const Student = require('../models/Student');
 const Subject = require('../models/Subject');
 const StudentAttendance = require('../models/StudentAttendance');
@@ -18,7 +19,7 @@ const StudentAttendance = require('../models/StudentAttendance');
 // Welcome Page
 router.get('/', forwardAuthenticated, (req, res) => res.render('login'));
 
-// Dashboard
+// Student Dashboard
 router.get('/student-dashboard', ensureAuthenticated,ensureStudent,(req, res) => {
     student_name = req.session.passport.user.name;
     subject_list = []
@@ -30,7 +31,6 @@ router.get('/student-dashboard', ensureAuthenticated,ensureStudent,(req, res) =>
                 subject_list.push(subject[0])
                 if(student_info[0].subject_code.length === subject_list.length){
                     res.render('studentDashboard', {subject_list:subject_list});
-                    console.log(subject_list)
                 }
             }).catch(err => {
                 console.log(err);

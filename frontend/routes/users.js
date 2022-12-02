@@ -90,7 +90,7 @@ router.post('/login',
             res.redirect('/teacherDashboard');
         }
         if (req.user.role === 0) {
-            res.redirect('//student-dashboard');
+            res.redirect('/student-dashboard');
         }
     });
 
