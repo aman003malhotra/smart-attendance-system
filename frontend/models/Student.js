@@ -20,7 +20,7 @@ const StudentSchema = new mongoose.Schema({
     type:String
   },
   subject_code:{
-    type:String
+    type:Array
   }
 });
 
