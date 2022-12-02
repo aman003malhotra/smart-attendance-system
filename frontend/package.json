@@ -30,7 +30,6 @@
     "passport-local": "^1.0.0",
     "store": "^2.0.12"
   },
-
   "devDependencies": {
     "nodemon": "^1.19.4"
   }

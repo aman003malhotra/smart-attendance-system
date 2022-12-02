@@ -12,55 +12,171 @@
 </head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <body>
     <%- include ("./partials/navbar") %>
-    <!-- ------------- Subject Info and Attendence Table--------------- -->
-    <div class="row mt-4 teacher-attendence-wrapper">
+        <!-- ------------- Subject Info and Attendence Table--------------- -->
+        <div class="row mt-4 teacher-attendence-wrapper">
 
-       
-           
-            
-           
-            <div  class="row box3 col-lg-12">
 
-                <form action="/confirmation" id="main-form" method="POST" enctype="multipart/form-data">
-                    <input  type="file"  name="image" required/>
-                    <input type="submit" value ="Submit" />
-                </form>
 
-                
+
+
+            <div class="col-lg-8 box3 pt-3 pb-4">
+
+                <div class="row">
+                    <h3 class="text-center">Attendence</h3>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2 box2">
+                        <table class=" subject-details-table table table-default ">
+
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Subject Id </th>
+                                    <td>PCCS-100</td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">Student Name</th>
+                                    <td>Aman Malhotra</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">URN</th>
+                                    <td>1904976</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Attendence Percentage</th>
+                                    <td>95%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2 box2">
+                            <div class="row">
+                                <h3 class="text-center">Upload Image</h3>
+                                <hr>
+                            </div>
+                            <form action="/confirmation" id="main-form" method="POST" enctype="multipart/form-data">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-14">
+                                            <div class="form-group">
+                                                <div class="preview-zone hidden">
+                                                    <div class="box box-solid">
+                                                        <div class="box-header with-border">
+                                                            <div><b>Preview</b></div>
+                                                            <div class="box-tools pull-right">
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="dropzone-wrapper ">
+                                                    <div class="dropzone-desc">
+                                                        <i class="glyphicon glyphicon-download-alt"></i>
+                                                        <p>Choose an image file or drag it here.</p>
+                                                    </div>
+                                                    <input type="file" name="image" required class="dropzone">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 pt-2">
+                                            <input type="submit" value="Submit" class="btn btn-mark" />
+                                            <input type="reset" onclick="window.location.reload()" value="Reset" class="btn btn-mark" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <form action="/confirmation" id="main-form" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="image" required/>
+                    <input type="submit" value="Submit" />
+                </form> -->
+
+
             </div>
-        
-    </div>
+
+        </div>
         <script>
-        const form = document.querySelector("form");
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
-          console.log("working");
-          const formData = new FormData(form);
-          await axios
-            .post("http://localhost:5000/predict", formData, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-                "withCredentials": false,
-              },
-            })
-            .then((res) => {
-              console.log(res.data);
-              window.location.href="/confirmation";
-                $.post("/foundStudents",
-                    {
-                        number: res.data,
-                    },
-                    function (data, status) {
-                        // console.log(data);
-                    });              
-            })
-            .catch((err) => {
-              console.log(err);
+            const form = document.querySelector("form");
+            form.addEventListener("submit", async(e) => {
+                e.preventDefault();
+                console.log("working");
+                const formData = new FormData(form);
+                await axios
+                    .post("http://localhost:5000/predict", formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                            "withCredentials": false,
+                        },
+                    })
+                    .then((res) => {
+                        console.log(res.data);
+                        window.location.href = "/confirmation";
+                        $.post("/foundStudents", {
+                                number: res.data,
+                            },
+                            function(data, status) {
+                                // console.log(data);
+                            });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             });
-        });
-      </script>
+        </script>
+
+        <script>
+            function readFile(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        var htmlPreview =
+                            '<img width="200" src="' + e.target.result + '" />' +
+                            '<p>' + input.files[0].name + '</p>';
+                        var wrapperZone = $(input).parent();
+                        var previewZone = $(input).parent().parent().find('.preview-zone');
+                        var boxZone = $(input).parent().parent().find('.preview-zone').find('.box').find('.box-body');
+
+                        wrapperZone.removeClass('dragover');
+                        previewZone.removeClass('hidden');
+                        boxZone.empty();
+                        boxZone.append(htmlPreview);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(".dropzone").change(function() {
+                readFile(this);
+            });
+
+            $('.dropzone-wrapper').on('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).addClass('dragover');
+            });
+
+            $('.dropzone-wrapper').on('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).removeClass('dragover');
+            });
+        </script>
 
 
 
