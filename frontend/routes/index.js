@@ -15,20 +15,6 @@ const Student = require('../models/Student');
 const StudentAttendance = require('../models/StudentAttendance');
 
 
-// const multer  = require('multer')
-
-// const FormData = require('form-data');
-
-// var storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, './uploads')
-//     },
-//     filename: function (req, file, cb) {
-//       cb(null, file.originalname)
-//     }
-// })
-// var upload = multer({ storage: storage })
-
 // Welcome Page
 router.get('/', forwardAuthenticated, (req, res) => res.render('login'));
 
@@ -51,6 +37,16 @@ router.get('/teacherDashboard', ensureAuthenticated,ensureTeacher,(req, res) => 
 
     res.render('teacherDashboard', {})
 });
+
+router.get('/all-student',ensureAuthenticated, (req, res) => {
+    Student.find({})
+    .then((students)=>{
+        res.render('allStudentsInfo', {students:students});
+    }).catch((err) => {
+        console.log(err);
+    })
+});
+
 
 
 // router.get('/confirmation', (req, res) => {
