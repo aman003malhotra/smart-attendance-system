@@ -12,6 +12,9 @@ const SubjectSchema = new mongoose.Schema({
   },
   credits: {
     type:Number,
+  },
+  branch: {
+    type:String,
   }
 });
 

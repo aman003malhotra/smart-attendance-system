@@ -13,6 +13,7 @@ var nodemailer = require('nodemailer');
 const twilio = require('twilio')
 const Student = require('../models/Student');
 const Subject = require('../models/Subject');
+
 const StudentAttendance = require('../models/StudentAttendance');
 
 
@@ -49,8 +50,18 @@ router.get('/viewAttendenceStudent',ensureAuthenticated,ensureStudent, (req, res
 });
 
 router.get('/teacherDashboard', ensureAuthenticated,ensureTeacher,(req, res) => {
+    teacher_name = req.session.passport.user.name;
+    Subject.find({ subject_teacher: teacher_name })
+    .then((teacher_data)=>{
+        // res.render('teacherDashboard', {teacher_data:teacher_data});
+        res.render('teacherDashboard', {teacher_data:teacher_data});
+        console.log(teacher_data)
+    }).catch((err) => {
+        console.log(err);
+    })
+    
 
-    res.render('teacherDashboard', {})
+    
 });
 
 router.get('/all-student',ensureAuthenticated, (req, res) => {
