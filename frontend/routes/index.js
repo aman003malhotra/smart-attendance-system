@@ -54,6 +54,11 @@ router.get('/aboutUs', (req, res) => {
     res.render('aboutUs', {})
 });
 
+router.get('/contactUs', (req, res) => {
+
+    res.render('contactUs', {})
+});
+
 router.get('/teacherDashboard', ensureAuthenticated, ensureTeacher, (req, res) => {
     teacher_name = req.session.passport.user.name;
     Subject.find({ subject_teacher: teacher_name })
