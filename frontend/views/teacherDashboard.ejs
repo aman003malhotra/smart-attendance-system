@@ -11,37 +11,10 @@
     <title>Document</title>
 </head>
 
-<body>
+<body class="bg-light">
     <%- include ("./partials/navbar") %>
         <div class="row mt-4 home">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2 box my-4 p-4">
-                        <div class="row my-2">
-                        <h3>Teacher Details</h3>
-                        <hr>
-                    </div>
-                        <table class="  table table-default ">
-                            
-                            <tbody>
-                                <tr>
-                                    <th scope="row">Teacher name</th>
-                                    <td><%= teacher_data[0].subject_name%></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Subject Id </th>
-                                    <td><%= teacher_data[0].subject_code%></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Credits</th>
-                                    <td><%= teacher_data[0].credits%></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
                 <div class="col-lg-8 offset-lg-2 box p-4">
                     <div class="row">
                         <h1 style="text-align:center">My Course</h1>
@@ -53,17 +26,23 @@
                             <div class="card" style="width:100%;">
                                 <img src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/fa/6926005ea411e490ff8d4c5d4ff426/chemistry_logo.png?auto=format%2Ccompress&dpr=1" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h1 class="card-title"><%= teacher_data[0].subject_name%></h1>
-                                    <p class="card-text" style="font-size: 30px;"><%= teacher_data[0].subject_code%></p>
+                                    <h1 class="card-title">
+                                        <%= teacher_data[0].subject_name%>
+                                    </h1>
+                                    <p class="card-text" style="font-size: 30px;">
+                                        <%= teacher_data[0].subject_code%>
+                                    </p>
                                     <div class="row">
                                         <div class="col-lg-12 px-0  ">
-                                            <a href="viewAttendenceTeacher"> <button class=" btn  btn-mark"><i class="bi bi-eye-fill"></i> View Attendance</button></a>
-                                            <a href="markAttendence"> <button class=" btn btn-mark"><i class="bi bi-file-earmark-arrow-up-fill"></i> Mark Attendence</button></a>
+                                            <a href="viewAttendenceTeacher"> <button class=" btn btn-light rounded-pill shadow-sm"><i class="bi bi-eye-fill"></i> View Attendance</button></a>
+                                            <a href="markAttendence"> <button class=" btn btn-light rounded-pill shadow-sm"><i class="bi bi-file-earmark-arrow-up-fill"></i> Mark Attendence</button></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
