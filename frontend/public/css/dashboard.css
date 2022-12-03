@@ -313,3 +313,24 @@ tr {
 .markAtt {
     background-color: #7b70c5d1;
 }
+
+
+/* -------------------AboutUs------------------- */
+
+.aboutProject {
+    text-align: justify;
+}
+
+.heading {
+    text-align: center;
+}
+
+
+/* -------------------AboutUs------------------- */
+
+.form-control {
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 2px solid lightgrey;
+    border-radius: 2px;
+}
