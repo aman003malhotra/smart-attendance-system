@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-    <title>About Us</title>
+    <title>Contact Us</title>
 </head>
 
 <body class="bg-light">
@@ -38,6 +38,7 @@
                     </div>
                     <!-- contact form -->
                     <div class="col-md-5 offset-lg-2  ">
+                        <%- include ("./partials/messages") %>
                         <form class="shake" role="form" method="POST" id="contactForm" name="contact-form" data-toggle="validator" action="/mailme">
                             <!-- Name -->
                             <div class="form-group label-floating mb-4">
