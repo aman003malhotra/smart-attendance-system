@@ -49,7 +49,7 @@ router.get('/student-dashboard', ensureAuthenticated, ensureStudent, (req, res) 
 
 router.get('/viewAttendenceStudent/:subject_code', ensureAuthenticated, ensureStudent, (req, res) => {
     subjectCode = req.params.subject_code;
-    student_ = req.session.passport.user.name;
+  
     Subject.find({ subject_code: subjectCode })
     .then((subject_data)=>{
         Student.find({name:req.session.passport.user.name})
