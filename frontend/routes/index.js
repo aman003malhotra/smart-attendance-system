@@ -3,7 +3,7 @@ const router = express.Router();
 
 const passport = require('passport');
 const { ensureAuthenticated, forwardAuthenticated, ensureTeacher, ensureStudent } = require('../config/auth');
-
+const url = require('url');
 const { now } = require('mongoose');
 const User = require('../models/user');
 const { default: axios } = require('axios');
@@ -63,15 +63,11 @@ router.get('/teacherDashboard', ensureAuthenticated, ensureTeacher, (req, res) =
     teacher_name = req.session.passport.user.name;
     Subject.find({ subject_teacher: teacher_name })
         .then((teacher_data) => {
-            // res.render('teacherDashboard', {teacher_data:teacher_data});
             res.render('teacherDashboard', { teacher_data: teacher_data });
             console.log(teacher_data)
         }).catch((err) => {
             console.log(err);
         })
-
-
-
 });
 
 router.get('/all-student', ensureAuthenticated, (req, res) => {
@@ -83,20 +79,80 @@ router.get('/all-student', ensureAuthenticated, (req, res) => {
         })
 });
 
+
 router.get('/viewAttendenceTeacher', ensureAuthenticated, ensureTeacher, (req, res) => {
-    res.render('viewAttendenceTeacher', {})
+    StudentAttendance.find({ date: req.query.date, session: req.query.session })
+        .then((result) => {
+            console.log(result)
+            res.render('viewAttendenceTeacher', { list: result })
+        })
+
 });
 
+
+router.get('/view-attendance-slot', (req, res) => {
+    res.render('selectAttendenceSlot')
+});
+
+router.post('/view-attendance-slot', (req, res) => {
+
+    res.redirect(url.format({
+        pathname: "/viewAttendenceTeacher",
+        query: {
+            "session": req.body.session,
+            "date": req.body.date
+        }
+    }));
+});
+
+
+
+router.get('/create-session', (req, res) => {
+    res.render('selectSession')
+})
+
+router.post('/store-session', (req, res) => {
+    console.log(req.body)
+    var today = new Date().toISOString().split('T')[0];
+    var subjectCode;
+    Subject.find({ subject_teacher: req.session.passport.user.name }).then((chosen_subject) => {
+        subjectCode = chosen_subject[0].subject_code;
+        Student.find({ subject_code: { "$in": [subjectCode] } }).then((found_student) => {
+            for (let index = 0; index < found_student.length; index++) {
+                const studentAttendanceObject = new StudentAttendance({
+                    teacherName: req.session.passport.user.name,
+                    studentName: found_student[index].name,
+                    studenturn: found_student[index].urn,
+                    subject_code: subjectCode,
+                    session: req.body.session,
+                    date: today,
+                    attendance_status: '0',
+                    branch: found_student[index].branch,
+                })
+                studentAttendanceObject.save().then(() => {
+                    console.log("attendence saved")
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
+        })
+    })
+
+    res.redirect('/markAttendence')
+})
+
 router.get('/markAttendence', ensureAuthenticated, ensureTeacher, (req, res) => {
+    
     res.render('markAttendence', {})
 });
 
 router.post('/foundStudents', ensureAuthenticated, ensureTeacher, (req, res, next) => {
+    store.clearAll();
     store.set('student', req.body.number.number);
 
 });
 
-router.get('/confirmation', ensureAuthenticated, ensureTeacher, async(req, res, next) => {
+router.get('/confirmation', ensureAuthenticated, ensureTeacher, async (req, res, next) => {
     console.log("Redirecting");
     console.log(store.get('student'));
     list_of_student = store.get('student');
@@ -119,40 +175,34 @@ router.get('/confirmation', ensureAuthenticated, ensureTeacher, async(req, res, 
 
 
 
-router.post('/finalConfirmation', ensureAuthenticated, ensureTeacher, (req, res, next) => {
+router.post('/finalConfirmation', ensureAuthenticated, ensureTeacher, async (req, res, next) => {
     console.log("Final Confirmation");
     console.log(store.get('student'));
     const current_date = new Date();
+    var count = 0;
     list_of_student = store.get('student');
     if (list_of_student) {
         for (let i = 0; i < list_of_student.length; i++) {
             Student.find({ urn: list_of_student[i] })
                 .then((user) => {
-                    const newAttendance = new StudentAttendance({
-                        teacherName: "kapil",
-                        subject_code: user[0].subject_code,
-                        studenturn: user[0].urn,
-                        date: current_date,
-                        slot: 2,
-                        branch: user[0].branch
-                    });
-
-                    newAttendance
-                        .save()
-                        .then((data) => {
-                            console.log("saved")
-                        })
-                        .catch(err => {
+                    StudentAttendance.updateOne({studenturn:user[0].urn}, 
+                        {attendance_status:"1"}, function (err, docs) {
+                        if (err){
                             console.log(err)
-                        })
-                }).then(() => {
-
-                    // ADDING REDIRECTION
-
-                    res.redirect('/markAttendence')
+                        }
+                        else{
+                            console.log("Updated Docs : ", docs);
+                        }
+                    });
                 }).catch((err) => {
                     console.log(err);
-                });
+                }).then(()=>{
+                    count = count+1;
+                    if(count == list_of_student.length){
+                        res.redirect('/markAttendence')
+                    }
+                })
+                
         }
     }
 });
