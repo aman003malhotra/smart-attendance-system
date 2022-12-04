@@ -13,24 +13,42 @@
 
 <body class="bg-light">
     <%- include ("./partials/navbar") %>
+        <div class="row mt-4 home">
+            <div class="container-fluid">
+                <div class="col-lg-6 offset-lg-3 box p-4">
+                    <div class="row">
+                        <h1 style="text-align:center">Select a session slot</h1>
 
-        
-    <form action="/store-session" method="post">
-        <h4>Select a session slot</h4>
-        <select class="form-select" name="session" aria-label="Default select example">
-            
-            <option selected value="1">8:30am-9:30am</option>
-            <option value="2">9:30am-10:30am</option>
-            <option value="3">10:30am-11:30am</option>
-            <option value="4">11:30am-12:30pm</option>
-            <option value="5">12:30pm-1:30pm</option>
-            <option value="6">1:30pm-2:30pm</option>
-            <option value="7">2:30pm-3:30pm</option>
-            
-          </select>
-        <input type="submit" value="Submit-Session">
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1 p-2">
+                            <form action="/store-session" method="post">
+                                <select class="form-select" name="session" aria-label="Default select example">
+                                
+                                <option selected value="1">8:30am-9:30am</option>
+                                <option value="2">9:30am-10:30am</option>
+                                <option value="3">10:30am-11:30am</option>
+                                <option value="4">11:30am-12:30pm</option>
+                                <option value="5">12:30pm-1:30pm</option>
+                                <option value="6">1:30pm-2:30pm</option>
+                                <option value="7">2:30pm-3:30pm</option>
+                                
+                              </select>
+                                <div class="row pt-3"></div>
+                                <input class=" btn btn-light rounded-pill shadow-sm" type="submit" value="Submit-Session">
 
-    </form>
+                            </form>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
 
 

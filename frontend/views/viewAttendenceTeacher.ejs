@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/Dashboard.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-    <title>View Attendance</title>
+    <title>View Attendance Teacher</title>
 </head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -17,8 +17,8 @@
     <%- include ("./partials/navbar") %>
         <!-- ------------- Subject Info and Attendence Table--------------- -->
         <div class="row mt-4 teacher-attendence-wrapper">
-           
-            
+
+
             <div class="col-lg-8 box3">
                 <div class="row">
                     <h3 class="text-center">Attendence</h3>
@@ -31,18 +31,24 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">Subject Name </th>
-                                    <td><%= subjectInfo.subject_name %></td>
+                                    <td>
+                                        <%= subjectInfo.subject_name %>
+                                    </td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Credits</th>
-                                    <td><%= subjectInfo.credits %></td>
+                                    <td>
+                                        <%= subjectInfo.credits %>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Teacher's Name</th>
-                                    <td><%= subjectInfo.subject_teacher %></td>
+                                    <td>
+                                        <%= subjectInfo.subject_teacher %>
+                                    </td>
                                 </tr>
-                               
+
                             </tbody>
                         </table>
                     </div>
@@ -52,31 +58,35 @@
 
 
                     <table id="myTable" class="table attendence-table table-hover  ">
-                        
+
                         <% if(list.length==0){ %>
                             <h3>No result found</h3>
-                            <% } else{ %> 
-                            <thead>
-                                <tr>
-                                    <th>URN</th>
-                                    <th>Student Name</th>
-                                    <th>Attendance</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% list.forEach(function(result){ %>
-                                <tr>
-                                    <td><%= result.studenturn %></td>
-                                    <td><%= result.studentName %></td>
-                                    <% if(result.attendance_status=='0'){ %>
-                                        <td>Absent</td>
-                                        <% } else{ %>  
-                                        <td>Present</td>
-                                    <% } %>
-                                </tr>
-                                <%  }); %>
-                            </tbody>
-                            <% } %>
+                            <% } else{ %>
+                                <thead>
+                                    <tr>
+                                        <th>URN</th>
+                                        <th>Student Name</th>
+                                        <th>Attendance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% list.forEach(function(result){ %>
+                                        <tr>
+                                            <td>
+                                                <%= result.studenturn %>
+                                            </td>
+                                            <td>
+                                                <%= result.studentName %>
+                                            </td>
+                                            <% if(result.attendance_status=='0'){ %>
+                                                <td>Absent</td>
+                                                <% } else{ %>
+                                                    <td>Present</td>
+                                                    <% } %>
+                                        </tr>
+                                        <%  }); %>
+                                </tbody>
+                                <% } %>
                     </table>
                 </div>
             </div>
