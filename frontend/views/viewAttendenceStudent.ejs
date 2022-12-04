@@ -27,105 +27,65 @@
 
                                 <tbody>
                                     <tr>
-                                        <th scope="row">Subject Id </th>
-                                        <td>PCCS-100</td>
+                                        <th scope="row">Subject Name </th>
+                                        <td><%= subject_data.subject_name %></td>
 
                                     </tr>
                                     <tr>
                                         <th scope="row">Credits</th>
-                                        <td>20</td>
+                                        <td><%= subject_data.credits %></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Teacher's Name</th>
-                                        <td>Dr. Vivek Thapar</td>
+                                        <td><%= subject_data.subject_teacher %></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">Attendence Percentage</th>
-                                        <td>95%</td>
-                                    </tr>
+                                   
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <table id="myTable" class="table attendence-table table-hover  ">
-                            <thead>
-                                <tr>
-                                    <th>Sr no.</th>
-                                    <th>Date</th>
-                                    <th>Attendance</th>
-                                    <th>Raise a Query</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 2022</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 2021</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 2023</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 2024</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 2025</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 2026</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 2027</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 2028</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 2029</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 20290</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>19 November 2022</td>
-                                    <td>Present</td>
-                                    <td><i class="bi bi-question-circle"></i></td>
-                                </tr>
-
-                            </tbody>
+                            <% if(list.length==0){ %>
+                                <h3>No result found</h3>
+                                <% } else{ %>  
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Timings</th>
+                                            <th>Attendance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% list.forEach(function(result){ %>
+                                        <tr>
+                                            <td><%= result.date %></td>
+                                            <% if(result.session=='1'){ %>
+                                                <td>8:30am - 9:30am</td>
+                                              <% } if(result.session=='2'){ %>  
+                                                <td>9:30am - 10:30am</td>
+                                             <% } if(result.session=='3'){ %>  
+                                                <td>10:30am - 11:30am</td>
+                                             <% }if(result.session=='4'){ %>  
+                                                <td>11:30am - 12:30pm</td>
+                                             <% }if(result.session=='5'){ %>  
+                                                <td>12:30pm - 1:30pm</td>
+                                             <% }if(result.session=='6'){ %>  
+                                                <td>1:30pm - 2:30pm</td>
+                                             <% }if(result.session=='7'){ %>  
+                                                <td>2:30pm - 3:30pm</td>
+                                             <%  }%>
+                                            <% if(result.attendance_status=='0'){ %>
+                                                <td>Absent</td>
+                                                <% } else{ %>  
+                                                <td>Present</td>
+                                             <% } %>
+                                             <td></td>
+                                        </tr>
+                                        <%  }); %>
+                                    </tbody>
+                             <% } %>
+                            
                         </table>
                     </div>
                 </div>

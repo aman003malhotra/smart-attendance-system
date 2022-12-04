@@ -30,22 +30,19 @@
 
                             <tbody>
                                 <tr>
-                                    <th scope="row">Subject Id </th>
-                                    <td>PCCS-100</td>
+                                    <th scope="row">Subject Name </th>
+                                    <td><%= subjectInfo.subject_name %></td>
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">Teacher Name</th>
-                                    <td>Kapil Sharma</td>
+                                    <th scope="row">Credits</th>
+                                    <td><%= subjectInfo.credits %></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Department</th>
-                                    <td>Computer Science</td>
+                                    <th scope="row">Teacher's Name</th>
+                                    <td><%= subjectInfo.subject_teacher %></td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Total Student</th>
-                                    <td>50</td>
-                                </tr>
+                               
                             </tbody>
                         </table>
                     </div>
@@ -55,27 +52,31 @@
 
 
                     <table id="myTable" class="table attendence-table table-hover  ">
-                        <thead>
-                            <tr>
-                                <th>URN</th>
-                                <th>Student Name</th>
-                                <th>Attendance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% list.forEach(function(result){ %>
-                            <tr>
-                                <td><%= result.studenturn %></td>
-                                <td><%= result.studentName %></td>
-                                <% if(result.attendance_status=='0'){ %>
-                                    <td>Absent</td>
-                                    <% } else{ %>  
-                                    <td>Present</td>
-                                 <% } %>
-                                
-                            </tr>
-                            <%  }); %>
-                        </tbody>
+                        
+                        <% if(list.length==0){ %>
+                            <h3>No result found</h3>
+                            <% } else{ %> 
+                            <thead>
+                                <tr>
+                                    <th>URN</th>
+                                    <th>Student Name</th>
+                                    <th>Attendance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% list.forEach(function(result){ %>
+                                <tr>
+                                    <td><%= result.studenturn %></td>
+                                    <td><%= result.studentName %></td>
+                                    <% if(result.attendance_status=='0'){ %>
+                                        <td>Absent</td>
+                                        <% } else{ %>  
+                                        <td>Present</td>
+                                    <% } %>
+                                </tr>
+                                <%  }); %>
+                            </tbody>
+                            <% } %>
                     </table>
                 </div>
             </div>

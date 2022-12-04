@@ -38,7 +38,7 @@
                     </div>
                     <!-- contact form -->
                     <div class="col-md-5 offset-lg-2  ">
-                        <form class="shake" role="form" method="post" id="contactForm" name="contact-form" data-toggle="validator">
+                        <form class="shake" role="form" method="POST" id="contactForm" name="contact-form" data-toggle="validator" action="/mailme">
                             <!-- Name -->
                             <div class="form-group label-floating mb-4">
                                 <label class="control-label" for="name">Name</label>
@@ -51,8 +51,8 @@
                             </div>
                             <!-- Subject -->
                             <div class="form-group label-floating mb-4">
-                                <label class="control-label">Subject</label>
-                                <input class="form-control" id="msg_subject" type="text" name="subject" required data-error="Please enter your message subject">
+                                <label class="control-label">Contact</label>
+                                <input class="form-control" id="msg_subject" type="text" name="contact" required data-error="Please enter your Contact Details">
                             </div>
                             <!-- Message -->
                             <div class="form-group label-floating mb-4">
