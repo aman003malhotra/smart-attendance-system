@@ -98,8 +98,12 @@ router.post('/login',
 router.get('/logout', (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
-    req.session.destroy();
-    res.redirect('/users/login');
+    req.session.destroy(function (err) {
+        res.clearCookie('connect.sid');
+        res.redirect('/users/login'); 
+      });
+    // req.session.destroy();
+    // res.redirect('/users/login');
 });
 
 module.exports = router;

@@ -17,53 +17,8 @@
     <%- include ("./partials/navbar") %>
         <!-- ------------- Subject Info and Attendence Table--------------- -->
         <div class="row mt-4 teacher-attendence-wrapper">
-
-            <div class="col-lg-3 box3 p-4">
-                <div class="row">
-                    <h3>Student List</h3>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="list-group list-students " data-spy="scroll">
-                        <a href="#" class="list-group-item list-group-item-action active">
-                        Anurag Pandey - 1904980
-                    </a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-                        <a href="#" class="list-group-item list-group-item-action">Anurag Pandey - 1904980</a>
-
-                    </div>
-                </div>
-            </div>
+           
+            
             <div class="col-lg-8 box3">
                 <div class="row">
                     <h3 class="text-center">Attendence</h3>
@@ -75,22 +30,19 @@
 
                             <tbody>
                                 <tr>
-                                    <th scope="row">Subject Id </th>
-                                    <td>PCCS-100</td>
+                                    <th scope="row">Subject Name </th>
+                                    <td><%= subjectInfo.subject_name %></td>
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">Teacher Name</th>
-                                    <td>Kapil Sharma</td>
+                                    <th scope="row">Credits</th>
+                                    <td><%= subjectInfo.credits %></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Department</th>
-                                    <td>Computer Science</td>
+                                    <th scope="row">Teacher's Name</th>
+                                    <td><%= subjectInfo.subject_teacher %></td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Total Student</th>
-                                    <td>50</td>
-                                </tr>
+                               
                             </tbody>
                         </table>
                     </div>
@@ -100,83 +52,31 @@
 
 
                     <table id="myTable" class="table attendence-table table-hover  ">
-                        <thead>
-                            <tr>
-                                <th>Sr no.</th>
-                                <th>Date</th>
-                                <th>Attendance</th>
-                                <th>Edit Attendance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 2022</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 2021</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 2023</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 2024</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 2025</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 2026</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 2027</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 2028</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 2029</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 20290</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>19 November 2022</td>
-                                <td>Present</td>
-                                <td><i class="bi bi-pencil-fill"></i></td>
-                            </tr>
-
-                        </tbody>
+                        
+                        <% if(list.length==0){ %>
+                            <h3>No result found</h3>
+                            <% } else{ %> 
+                            <thead>
+                                <tr>
+                                    <th>URN</th>
+                                    <th>Student Name</th>
+                                    <th>Attendance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% list.forEach(function(result){ %>
+                                <tr>
+                                    <td><%= result.studenturn %></td>
+                                    <td><%= result.studentName %></td>
+                                    <% if(result.attendance_status=='0'){ %>
+                                        <td>Absent</td>
+                                        <% } else{ %>  
+                                        <td>Present</td>
+                                    <% } %>
+                                </tr>
+                                <%  }); %>
+                            </tbody>
+                            <% } %>
                     </table>
                 </div>
             </div>

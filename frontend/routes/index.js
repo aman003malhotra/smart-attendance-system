@@ -3,7 +3,7 @@ const router = express.Router();
 
 const passport = require('passport');
 const { ensureAuthenticated, forwardAuthenticated, ensureTeacher, ensureStudent } = require('../config/auth');
-
+const url = require('url');
 const { now } = require('mongoose');
 const User = require('../models/user');
 const { default: axios } = require('axios');
@@ -13,6 +13,9 @@ var nodemailer = require('nodemailer');
 const twilio = require('twilio')
 const Student = require('../models/Student');
 const Subject = require('../models/Subject');
+
+const Contact = require('../models/ContactUs');
+
 
 const StudentAttendance = require('../models/StudentAttendance');
 
@@ -44,34 +47,34 @@ router.get('/student-dashboard', ensureAuthenticated, ensureStudent, (req, res) 
 });
 
 
-router.get('/viewAttendenceStudent', ensureAuthenticated, ensureStudent, (req, res) => {
-
-    res.render('viewAttendenceStudent', {})
+router.get('/viewAttendenceStudent/:subject_code', ensureAuthenticated, ensureStudent, (req, res) => {
+    subjectCode = req.params.subject_code;
+    Student.find({name:req.session.passport.user.name})
+    .then((result)=>{
+        // console.log(result);
+        StudentAttendance.find({subject_code:subjectCode, studenturn:result[0].urn})
+        .then((result) => {
+            // console.log(result);
+            res.render('viewAttendenceStudent', {list:result})
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    })
+    
 });
 
-router.get('/aboutUs', (req, res) => {
 
-    res.render('aboutUs', {})
-});
-
-router.get('/contactUs', (req, res) => {
-
-    res.render('contactUs', {})
-});
 
 router.get('/teacherDashboard', ensureAuthenticated, ensureTeacher, (req, res) => {
     teacher_name = req.session.passport.user.name;
     Subject.find({ subject_teacher: teacher_name })
         .then((teacher_data) => {
-            // res.render('teacherDashboard', {teacher_data:teacher_data});
             res.render('teacherDashboard', { teacher_data: teacher_data });
-            console.log(teacher_data)
+            // console.log(teacher_data)
         }).catch((err) => {
             console.log(err);
         })
-
-
-
 });
 
 router.get('/all-student', ensureAuthenticated, (req, res) => {
@@ -83,12 +86,83 @@ router.get('/all-student', ensureAuthenticated, (req, res) => {
         })
 });
 
+
 router.get('/viewAttendenceTeacher', ensureAuthenticated, ensureTeacher, (req, res) => {
-    res.render('viewAttendenceTeacher', {})
+    Subject.find({subject_teacher:req.session.passport.user.name})
+    .then((subjectInfo)=>{
+        StudentAttendance.find({ date: req.query.date, session: req.query.session })
+        .then((result) => {
+            
+            // console.log(result);
+            // console.log(subjectInfo);
+
+            res.render('viewAttendenceTeacher', { list: result, subjectInfo:subjectInfo[0] })
+        })
+    })   
 });
 
+
+router.get('/view-attendance-slot', (req, res) => {
+    res.render('selectAttendenceSlot')
+});
+
+router.post('/view-attendance-slot', (req, res) => {
+
+    res.redirect(url.format({
+        pathname: "/viewAttendenceTeacher",
+        query: {
+            "session": req.body.session,
+            "date": req.body.date
+        }
+    }));
+});
+
+
+
+router.get('/create-session', (req, res) => {
+    req.session.passport.markAttendance={}
+    res.render('selectSession')
+})
+
+router.post('/store-session', (req, res) => {
+    console.log(req.body)
+    var today = new Date().toISOString().split('T')[0];
+    var subjectCode;
+    req.session.passport.markAttendance.date=today;
+    req.session.passport.markAttendance.session=req.body.session;
+    Subject.find({ subject_teacher: req.session.passport.user.name }).then((chosen_subject) => {
+        subjectCode = chosen_subject[0].subject_code;
+        Student.find({ subject_code: { "$in": [subjectCode] } }).then((found_student) => {
+            for (let index = 0; index < found_student.length; index++) {
+                const studentAttendanceObject = new StudentAttendance({
+                    teacherName: req.session.passport.user.name,
+                    studentName: found_student[index].name,
+                    studenturn: found_student[index].urn,
+                    subject_code: subjectCode,
+                    session: req.body.session,
+                    date: today,
+                    attendance_status: '0',
+                    branch: found_student[index].branch,
+                }, { unique: true })
+                studentAttendanceObject.save().then(() => {
+                    console.log("attendence saved")
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
+        })
+    })
+
+    res.redirect('/markAttendence')
+})
+
 router.get('/markAttendence', ensureAuthenticated, ensureTeacher, (req, res) => {
-    res.render('markAttendence', {})
+    store.clearAll();
+    Subject.find({subject_teacher:req.session.passport.user.name})
+    .then((subjectInfo)=>{
+
+        res.render('markAttendence', {subjectInfo:subjectInfo[0] })
+    });
 });
 
 router.post('/foundStudents', ensureAuthenticated, ensureTeacher, (req, res, next) => {
@@ -96,65 +170,100 @@ router.post('/foundStudents', ensureAuthenticated, ensureTeacher, (req, res, nex
 
 });
 
-router.get('/confirmation', ensureAuthenticated, ensureTeacher, async(req, res, next) => {
+router.get('/confirmation', ensureAuthenticated, ensureTeacher, async (req, res, next) => {
     console.log("Redirecting");
     console.log(store.get('student'));
     list_of_student = store.get('student');
     final_list = [];
+    Subject.find({subject_teacher:req.session.passport.user.name})
+    .then((subjectInfo)=>{
+        if (list_of_student) {
+            for (let i = 0; i < list_of_student.length; i++) {
+                Student.find({ urn: list_of_student[i] })
+                    .then((user) => {
+                        final_list.push(user[0])
+                        if (final_list.length === list_of_student.length) {
+                            console.log("final", final_list);
+                            res.render('attendanceConfirmation', { final_list: final_list, subjectInfo:subjectInfo[0] });
+                        }
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+            }
+        }else{
+            res.redirect('/markAttendence');
+        }
+    
+    });
+
+});
+
+
+
+router.post('/finalConfirmation', ensureAuthenticated, ensureTeacher, async (req, res, next) => {
+    console.log("Final Confirmation");
+    console.log(store.get('student'));
+    const current_date = new Date();
+    var count = 0;
+    final_date=req.session.passport.markAttendance.date;
+    final_session=req.session.passport.markAttendance.session;
+    list_of_student = store.get('student');
+    
     if (list_of_student) {
         for (let i = 0; i < list_of_student.length; i++) {
             Student.find({ urn: list_of_student[i] })
                 .then((user) => {
-                    final_list.push(user[0])
-                    if (final_list.length === list_of_student.length) {
-                        console.log("final", final_list);
-                        res.render('attendanceConfirmation', { final_list: final_list });
-                    }
+                    StudentAttendance.updateOne({studenturn:user[0].urn,session:final_session,date:final_date}, 
+                        {attendance_status:"1"}, function (err, docs) {
+                        if (err){
+                            console.log(err)
+                        }
+                        else{
+                            console.log("Updated Docs : ", docs);
+                        }
+                    });
                 }).catch((err) => {
                     console.log(err);
-                });
+                }).then(()=>{
+                    count = count+1;
+                    if(count == list_of_student.length){
+                        req.flash('success_msg', 'Your Attendance has been marked, Please input another image');
+                        res.redirect('/markAttendence');
+                    }
+                })
+                
         }
     }
 });
 
 
+router.post('/mailme', (req,res)=> {
+    var contactInfo = new Contact({
+        name:req.body.name,
+        email:req.body.email,
+        contact: req.body.contact,
+        message:req.body.message
+      });
 
-router.post('/finalConfirmation', ensureAuthenticated, ensureTeacher, (req, res, next) => {
-    console.log("Final Confirmation");
-    console.log(store.get('student'));
-    const current_date = new Date();
-    list_of_student = store.get('student');
-    if (list_of_student) {
-        for (let i = 0; i < list_of_student.length; i++) {
-            Student.find({ urn: list_of_student[i] })
-                .then((user) => {
-                    const newAttendance = new StudentAttendance({
-                        teacherName: "kapil",
-                        subject_code: user[0].subject_code,
-                        studenturn: user[0].urn,
-                        date: current_date,
-                        slot: 2,
-                        branch: user[0].branch
-                    });
+      contactInfo
+      .save()
+      .then((result) => {
+        console.log("contact info saved")
+        res.redirect('/contactUs')
+      }).catch((err) => { 
+        console.log(err);
+      })
+});
 
-                    newAttendance
-                        .save()
-                        .then((data) => {
-                            console.log("saved")
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
-                }).then(() => {
 
-                    // ADDING REDIRECTION
+router.get('/aboutUs', (req, res) => {
 
-                    res.redirect('/markAttendence')
-                }).catch((err) => {
-                    console.log(err);
-                });
-        }
-    }
+    res.render('aboutUs', {})
+});
+
+router.get('/contactUs', (req, res) => {
+
+    res.render('contactUs', {})
 });
 
 
