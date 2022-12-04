@@ -9,7 +9,7 @@ At present, attendance marking involves manual attendance on the paper sheet by 
 This system has a database with the images of all the students of the class with their details like Name, URN, Email ID, Phone No and Branch. It also has the details of all the subjects with the teachers teaching those subjects. Whenever the teacher uploads the image of the class, the model detects all the faces from the image and checks them with the database for their details and then marks the attendance. The student can login into their portal and then check their attendance. If they have any issue they can raise a query and it will be reported to the teacher. The overall accuracy of this project is 85%. All the data of students is stored in MongoDB.
 </p>
 
-This project is divided into 3 phases:
+This project is divided into 4 phases:
 
 1. Collection of real data and setting images for feature extraction. 
 2. Once the real data and images are collected, the model is trained on those images and multiple group images are detected and are checked for the accuracy.
