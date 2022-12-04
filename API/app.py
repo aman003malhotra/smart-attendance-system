@@ -38,6 +38,7 @@ def predict():
       faces = RetinaFace.extract_faces(numpydata, align=True)
       print("There are ", len(faces), " faces in the image")
       list_of_students = []
+      cosine_check = {}
       for face in faces:
         df = DeepFace.find(face, db_path = "./static/jpg2", enforce_detection=False, distance_metric='cosine', model = model, model_name='VGG-Face')
         df = df.rename(columns = {'VGG-Face_cosine':'distance'})
@@ -48,15 +49,21 @@ def predict():
             string = string.encode("unicode_escape")
             string = string[15:22]
             string = string.decode()
-            if(cosine < 0.31):
-                print(matched)
-                list_of_students.append(string)
-            else:
-                print("No Match Found")
-            print(cosine)
-            print("URN: ",string)
-            print("------------------------\n")
-        print("------------------------")
+            if(cosine < 0.298):
+              print(matched)
+              if(string not in cosine_check.keys()):
+                    cosine_check[string] = cosine
+                    list_of_students.append(string)
+              if(cosine_check[string] >= cosine):
+                cosine_check[string] = cosine
+              # else:
+              #   print("No Match Found")
+            # else:
+                # print("No Match Found")
+            # print(cosine)
+            # print("URN: ",string)
+            # print("------------------------\n")
+        # print("------------------------")
       print(list_of_students)
       data={"number":list_of_students}
       return jsonify(data)
