@@ -49,18 +49,23 @@ router.get('/student-dashboard', ensureAuthenticated, ensureStudent, (req, res) 
 
 router.get('/viewAttendenceStudent/:subject_code', ensureAuthenticated, ensureStudent, (req, res) => {
     subjectCode = req.params.subject_code;
-    Student.find({name:req.session.passport.user.name})
-    .then((result)=>{
-        // console.log(result);
-        StudentAttendance.find({subject_code:subjectCode, studenturn:result[0].urn})
-        .then((result) => {
+    student_ = req.session.passport.user.name;
+    Subject.find({ subject_code: subjectCode })
+    .then((subject_data)=>{
+        Student.find({name:req.session.passport.user.name})
+        .then((result)=>{
             // console.log(result);
-            res.render('viewAttendenceStudent', {list:result})
+            StudentAttendance.find({subject_code:subjectCode, studenturn:result[0].urn})
+            .then((result) => {
+                // console.log(result);
+                res.render('viewAttendenceStudent', {list:result, subject_data:subject_data[0]})
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         })
-        .catch((err) => {
-            console.log(err);
-        })
-    })
+    });
+   
     
 });
 
@@ -134,6 +139,10 @@ router.post('/store-session', (req, res) => {
         subjectCode = chosen_subject[0].subject_code;
         Student.find({ subject_code: { "$in": [subjectCode] } }).then((found_student) => {
             for (let index = 0; index < found_student.length; index++) {
+
+
+
+
                 const studentAttendanceObject = new StudentAttendance({
                     teacherName: req.session.passport.user.name,
                     studentName: found_student[index].name,
@@ -143,7 +152,7 @@ router.post('/store-session', (req, res) => {
                     date: today,
                     attendance_status: '0',
                     branch: found_student[index].branch,
-                }, { unique: true })
+                })
                 studentAttendanceObject.save().then(() => {
                     console.log("attendence saved")
                 }).catch((err) => {
@@ -249,6 +258,10 @@ router.post('/mailme', (req,res)=> {
       .save()
       .then((result) => {
         console.log("contact info saved")
+        req.flash(
+            'success_msg',
+            'We will be connecting with you soon!'
+        );
         res.redirect('/contactUs')
       }).catch((err) => { 
         console.log(err);
@@ -262,7 +275,7 @@ router.get('/aboutUs', (req, res) => {
 });
 
 router.get('/contactUs', (req, res) => {
-
+    
     res.render('contactUs', {})
 });
 
