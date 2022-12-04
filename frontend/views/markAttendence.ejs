@@ -23,11 +23,11 @@
 
 
             <div class="col-lg-8 box3 pt-3 pb-4">
-                
+
                 <div class="row">
                     <h3 class="text-center">Attendence</h3>
                     <%- include ("./partials/messages") %>
-                    <hr>
+                        <hr>
                 </div>
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2 box2">
@@ -35,16 +35,22 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">Subject Name </th>
-                                    <td><%= subjectInfo.subject_name %></td>
+                                    <td>
+                                        <%= subjectInfo.subject_name %>
+                                    </td>
 
                                 </tr>
                                 <tr>
                                     <th scope="row">Credits</th>
-                                    <td><%= subjectInfo.credits %></td>
+                                    <td>
+                                        <%= subjectInfo.credits %>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Teacher's Name</th>
-                                    <td><%= subjectInfo.subject_teacher %></td>
+                                    <td>
+                                        <%= subjectInfo.subject_teacher %>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
