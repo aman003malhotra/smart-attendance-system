@@ -2,19 +2,25 @@ const mongoose = require('mongoose');
 
 const StudentAttendanceSchema = new mongoose.Schema({
   teacherName: {
-    type: String,
+    type: String
   },
   studenturn: {
-    type: String,
+    type: String
+  },
+  studentName:{
+    type:String
   },
   subject_code: {
-    type: String,
+    type: String
   },
-  slot: {
-    type:Number,
+  session: {
+    type:Number
   },
   date: {
-    type:Date,
+    type:String
+  },
+  attendance_status:{
+    type:String
   },
   branch:{
     type:String
