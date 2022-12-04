@@ -23,32 +23,28 @@
 
 
             <div class="col-lg-8 box3 pt-3 pb-4">
-
+                
                 <div class="row">
                     <h3 class="text-center">Attendence</h3>
+                    <%- include ("./partials/messages") %>
                     <hr>
                 </div>
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2 box2">
                         <table class=" subject-details-table table table-default ">
-
                             <tbody>
                                 <tr>
-                                    <th scope="row">Subject Id </th>
-                                    <td>PCCS-100</td>
+                                    <th scope="row">Subject Name </th>
+                                    <td><%= subjectInfo.subject_name %></td>
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">Student Name</th>
-                                    <td>Aman Malhotra</td>
+                                    <th scope="row">Credits</th>
+                                    <td><%= subjectInfo.credits %></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">URN</th>
-                                    <td>1904976</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Attendence Percentage</th>
-                                    <td>95%</td>
+                                    <th scope="row">Teacher's Name</th>
+                                    <td><%= subjectInfo.subject_teacher %></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -93,6 +89,7 @@
                                             <input type="submit" value="Submit" class="btn btn-light rounded-pill shadow-sm " />
                                             <input type="reset" onclick="window.location.reload()" value="Reset" class="btn btn-light rounded-pill shadow-sm " />
                                         </div>
+                                        <span class="text-secondary">*Do not click Back Untill you have marked all attendances</span>
                                     </div>
                                 </div>
                             </form>

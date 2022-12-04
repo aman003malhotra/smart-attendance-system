@@ -19,7 +19,7 @@
         <div class="row mt-4 teacher-attendence-wrapper">
             <form action="/view-attendance-slot" method="post">
                 <h4>Select a session slot</h4>
-                <select class="form-select" name="session" aria-label="Default select example">
+                <select class="form-select" name="session" aria-label="Default select example" required>
                     
                     <option selected value="1">8:30am-9:30am</option>
                     <option value="2">9:30am-10:30am</option>
@@ -30,7 +30,7 @@
                     <option value="7">2:30pm-3:30pm</option>
                     
                   </select>
-                  <input type="date" name="date" id="date">
+                  <input type="date" name="date" id="date" required>
                 <input type="submit" value="Submit-Session">
         
             </form>

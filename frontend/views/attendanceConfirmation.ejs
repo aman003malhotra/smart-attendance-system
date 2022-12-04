@@ -13,9 +13,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<body class="bg-light">
+<body>
     <%- include ("./partials/navbar") %>
-        <!-- ------------- Subject Info and Attendence Table--------------- -->
+        <!-- ------------- Subject Info and Attendence Table----------------->
         <div class="row mt-4 teacher-attendence-wrapper">
 
 
@@ -30,28 +30,25 @@
 
                             <tbody>
                                 <tr>
-                                    <th scope="row">Subject Id </th>
-                                    <td>PCCS-100</td>
+                                    <th scope="row">Subject Name </th>
+                                    <td><%= subjectInfo.subject_name %></td>
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">Teacher Name</th>
-                                    <td>Kapil Sharma</td>
+                                    <th scope="row">Credits</th>
+                                    <td><%= subjectInfo.credits %></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Department</th>
-                                    <td>Computer Science</td>
+                                    <th scope="row">Teacher's Name</th>
+                                    <td><%= subjectInfo.subject_teacher %></td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">Total Student</th>
-                                    <td>50</td>
-                                </tr>
+                               
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div style="text-align:center" class="row mt-4">
-                    <table id="myTable" class="table attendence-table table-hover  ">
+                    <table id="myTable" class="table attendence-table table-striped  ">
                         <thead>
                             <tr>
                                 <th>URN</th>
@@ -80,7 +77,7 @@
                         </tbody>
                     </table>
                     <form id="main-form" method="POST" class="my-3" action="/finalConfirmation" enctype="multipart/form-data">
-                        <input type="submit" class="btn btn-light rounded-pill shadow-sm" value="Confirm Attendance" />
+                        <input type="submit" class="btn btn-mark" value="Confirm Attendance" />
                     </form>
                 </div>
             </div>
