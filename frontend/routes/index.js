@@ -93,17 +93,14 @@ router.get('/all-student', ensureAuthenticated, (req, res) => {
 
 
 router.get('/viewAttendenceTeacher', ensureAuthenticated, ensureTeacher, (req, res) => {
-    Subject.find({ subject_teacher: req.session.passport.user.name })
-        .then((subjectInfo) => {
-            StudentAttendance.find({ date: req.query.date, session: req.query.session })
-                .then((result) => {
+    Subject.find({subject_teacher:req.session.passport.user.name})
+    .then((subjectInfo)=>{
+        StudentAttendance.find({teacherName:req.session.passport.user.name, date: req.query.date, session: req.query.session })
+        .then((result) => {
 
-                    // console.log(result);
-                    // console.log(subjectInfo);
-
-                    res.render('viewAttendenceTeacher', { list: result, subjectInfo: subjectInfo[0] })
-                })
+            res.render('viewAttendenceTeacher', { list: result, subjectInfo:subjectInfo[0] })
         })
+    })   
 });
 
 
@@ -139,25 +136,32 @@ router.post('/store-session', (req, res) => {
         subjectCode = chosen_subject[0].subject_code;
         Student.find({ subject_code: { "$in": [subjectCode] } }).then((found_student) => {
             for (let index = 0; index < found_student.length; index++) {
+                
+                StudentAttendance.find({teacherName:req.session.passport.user.name,studentName:found_student[index].name, session:req.body.session ,date:today})
+                .then(user => {
+                    if (user.length!=0) {
+                        req.flash('error_msg', 'Attendence already marked');
+                    } else {
+                        const studentAttendanceObject = new StudentAttendance({
+                            teacherName: req.session.passport.user.name,
+                            studentName: found_student[index].name,
+                            studenturn: found_student[index].urn,
+                            subject_code: subjectCode,
+                            session: req.body.session,
+                            date: today,
+                            attendance_status: '0',
+                            branch: found_student[index].branch,
+                        })
+                        studentAttendanceObject.save().then(() => {
+                            console.log("attendence saved")
+                        }).catch((err) => {
+                            console.log(err)
+                        })
+                    }
+                });
 
 
-
-
-                const studentAttendanceObject = new StudentAttendance({
-                    teacherName: req.session.passport.user.name,
-                    studentName: found_student[index].name,
-                    studenturn: found_student[index].urn,
-                    subject_code: subjectCode,
-                    session: req.body.session,
-                    date: today,
-                    attendance_status: '0',
-                    branch: found_student[index].branch,
-                })
-                studentAttendanceObject.save().then(() => {
-                    console.log("attendence saved")
-                }).catch((err) => {
-                    console.log(err)
-                })
+             
             }
         })
     })
@@ -170,8 +174,8 @@ router.get('/markAttendence', ensureAuthenticated, ensureTeacher, (req, res) => 
     Subject.find({ subject_teacher: req.session.passport.user.name })
         .then((subjectInfo) => {
 
-            res.render('markAttendence', { subjectInfo: subjectInfo[0] })
-        });
+        res.render('markAttendence', {subjectInfo:subjectInfo[0] })
+    });
 });
 
 router.post('/foundStudents', ensureAuthenticated, ensureTeacher, (req, res, next) => {
@@ -183,6 +187,7 @@ router.post('/foundStudents', ensureAuthenticated, ensureTeacher, (req, res, nex
     } else {
         store.set('student', req.body.number.number);
     }
+
 
 });
 
