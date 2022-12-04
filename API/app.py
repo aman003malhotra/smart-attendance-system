@@ -39,6 +39,10 @@ def predict():
       print("There are ", len(faces), " faces in the image")
       list_of_students = []
       cosine_check = {}
+      if(len(faces) == 0):
+            print(list_of_students)
+            data={"number":list_of_students}
+            return jsonify(data) 
       for face in faces:
         df = DeepFace.find(face, db_path = "./static/jpg2", enforce_detection=False, distance_metric='cosine', model = model, model_name='VGG-Face')
         df = df.rename(columns = {'VGG-Face_cosine':'distance'})
