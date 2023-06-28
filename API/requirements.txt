@@ -9,4 +9,4 @@ pyparsing==3.0.9
 sqlparse==0.4.3
 tzdata==2022.6
 virtualenv==20.16.5
-flask==2.3.2
+Flask==2.2.4
