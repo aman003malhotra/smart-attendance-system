@@ -10,3 +10,4 @@ sqlparse==0.4.3
 tzdata==2022.6
 virtualenv==20.16.5
 Flask==2.2.4
+deepface==0.0.79
