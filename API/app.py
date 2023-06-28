@@ -8,7 +8,7 @@ from werkzeug.datastructures import  FileStorage
 from deepface.basemodels import VGGFace
 from PIL import Image
 from numpy import asarray
-
+import os
 from flask_cors import CORS
 
 model = VGGFace.loadModel()
